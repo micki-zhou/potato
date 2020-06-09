@@ -9,11 +9,12 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'mm',
+      title: 'potato',
       home: LoginView(),
     );
   }
 }
+
 // disable
 class MyApp extends StatelessWidget {
   @override
