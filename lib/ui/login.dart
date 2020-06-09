@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _LoginState();
+  }
+}
+
+class _LoginState extends State<LoginView> {
   String accountText = "";
   String passwordText = "";
 
@@ -10,31 +17,52 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign in'),
+        backgroundColor: Color(0xff383838),
       ),
+      backgroundColor: Color(0xff383838),
       body: Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextField(
-                onChanged: (value) {
-                  accountText = value;
-                },
-                decoration: InputDecoration(
-                  labelText: 'please enter account',
-                  hintText: "",
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: TextField(
+                  onChanged: (value) {
+                    accountText = value;
+                  },
+                  decoration: InputDecoration(
+                    // labelText: 'please enter account',
+                    hintText: "please enter account",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.white,
+                    filled: true,
+                    prefixIcon: Icon(Icons.person),
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
               ),
-              TextField(
-                onChanged: (value) {
-                  passwordText = value;
-                },
-                decoration: InputDecoration(
-                    labelText: 'please enter password', hintText: ""),
-                obscureText: true,
-                keyboardType: TextInputType.text,
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: TextField(
+                  onChanged: (value) {
+                    passwordText = value;
+                  },
+                  decoration: InputDecoration(
+                      // labelText: 'please enter password',
+                      hintText: "please enter password",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none),
+                      fillColor: Colors.white,
+                      filled: true,
+                      prefixIcon: Icon(Icons.lock)),
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                ),
               ),
               LoginButton()
             ],
@@ -46,7 +74,6 @@ class LoginView extends StatelessWidget {
 }
 
 class LoginButton extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,14 +90,7 @@ class LoginButton extends StatelessWidget {
     );
   }
 
-  void _login(BuildContext context) {
-    // print(
-    //   'account:${accountControlller.text} password: ${passwordController.text}',
-    // );
-    // if (accountControlller.text.length == 0) {
-    //   Scaffold.of(context).showSnackBar(SnackBar(
-    //     content: Text('please enter account'),
-    //   ));
-    // }
+  void _login(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
   }
 }
