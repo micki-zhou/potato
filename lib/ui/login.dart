@@ -26,56 +26,64 @@ class _LoginState extends State<LoginView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: TextField(
-                  onChanged: (value) {
-                    accountText = value;
-                  },
-                  decoration: InputDecoration(
-                    // labelText: 'please enter account',
-                    hintText: "please enter account",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: TextField(
-                  onChanged: (value) {
-                    passwordText = value;
-                  },
-                  decoration: InputDecoration(
-                      // labelText: 'please enter password',
-                      hintText: "please enter password",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none),
-                      fillColor: Colors.white,
-                      filled: true,
-                      prefixIcon: Icon(Icons.lock)),
-                  obscureText: true,
-                  keyboardType: TextInputType.text,
-                ),
-              ),
-              LoginButton()
+              _accountTextField(),
+              _passwordTextField(),
+              _loginBtn()
             ],
           ),
         ),
       ),
     );
   }
-}
 
-class LoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  // 账号输入框
+  Widget _accountTextField() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: TextField(
+        onChanged: (value) {
+          accountText = value;
+        },
+        decoration: InputDecoration(
+          // labelText: 'please enter account',
+          hintText: "please enter account",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none),
+          fillColor: Colors.white,
+          filled: true,
+          prefixIcon: Icon(Icons.person),
+        ),
+        keyboardType: TextInputType.number,
+      ),
+    );
+  }
+
+  // 密码输入框
+  Widget _passwordTextField() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+      child: TextField(
+        onChanged: (value) {
+          passwordText = value;
+        },
+        decoration: InputDecoration(
+            // labelText: 'please enter password',
+            hintText: "please enter password",
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none),
+            fillColor: Colors.white,
+            filled: true,
+            prefixIcon: Icon(Icons.lock)),
+        obscureText: true,
+        keyboardType: TextInputType.text,
+      ),
+    );
+  }
+
+  // 登录按钮
+  Widget _loginBtn() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: RaisedButton(
@@ -83,14 +91,10 @@ class LoginButton extends StatelessWidget {
         color: Colors.blueAccent,
         textColor: Colors.white,
         onPressed: () {
-          _login(context);
+          print('account: $accountText  password: $passwordText');
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
     );
-  }
-
-  void _login(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
   }
 }
