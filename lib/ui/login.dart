@@ -8,9 +8,28 @@ class LoginView extends StatefulWidget {
   }
 }
 
-class _LoginState extends State<LoginView> {
+class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
   String accountText = "";
   String passwordText = "";
+  AnimationController animationController;
+  CurvedAnimation curvedAnimation;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    curvedAnimation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeInOutBack);
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,51 +58,57 @@ class _LoginState extends State<LoginView> {
   // 账号输入框
   Widget _accountTextField() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-      child: TextField(
-        onChanged: (value) {
-          accountText = value;
-        },
-        decoration: InputDecoration(
-          // labelText: 'please enter account',
-          hintText: "please enter account",
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none),
-          fillColor: Colors.white,
-          filled: true,
-          prefixIcon: Icon(Icons.person),
-        ),
-        keyboardType: TextInputType.number,
-      ),
-    );
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        child: ScaleTransition(
+          alignment: Alignment.centerLeft,
+          scale: curvedAnimation,
+          child: TextField(
+            onChanged: (value) {
+              accountText = value;
+            },
+            decoration: InputDecoration(
+              // labelText: 'please enter account',
+              hintText: "please enter account",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none),
+              fillColor: Colors.white,
+              filled: true,
+              prefixIcon: Icon(Icons.person),
+            ),
+            keyboardType: TextInputType.number,
+          ),
+        ));
   }
 
   // 密码输入框
   Widget _passwordTextField() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-      child: TextField(
-        onChanged: (value) {
-          passwordText = value;
-        },
-        decoration: InputDecoration(
-            // labelText: 'please enter password',
-            hintText: "please enter password",
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none),
-            fillColor: Colors.white,
-            filled: true,
-            prefixIcon: Icon(Icons.lock)),
-        obscureText: true,
-        keyboardType: TextInputType.text,
-      ),
-    );
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: ScaleTransition(
+          alignment: Alignment.centerRight,
+          scale: curvedAnimation,
+          child: TextField(
+            onChanged: (value) {
+              passwordText = value;
+            },
+            decoration: InputDecoration(
+                // labelText: 'please enter password',
+                hintText: "please enter password",
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none),
+                fillColor: Colors.white,
+                filled: true,
+                prefixIcon: Icon(Icons.lock)),
+            obscureText: true,
+            keyboardType: TextInputType.text,
+          ),
+        ));
   }
 
   // 登录按钮
-  Widget _loginBtn() {
+  Widget _loginBtn( ) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: RaisedButton(
