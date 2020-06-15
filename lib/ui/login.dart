@@ -117,29 +117,33 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             color: Colors.blueAccent,
             textColor: Colors.white,
             onPressed: () {
-              if(accountText == '') {
+              void showsnackBar(String msg) {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.blueAccent,
-                  content: Text('账号不能为空'),
+                  duration: Duration(milliseconds: 1000),
+                  content: Text(msg),
                 ));
+              }
+
+              if (accountText.isEmpty) {
+                showsnackBar("account cannot be empty");
                 return;
               }
-              if(passwordText == '') {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.blueAccent,
-                  content: Text('密码不能为空'),
-                ));
+              if (passwordText.isEmpty) {
+                showsnackBar("password cannot be empty");
                 return;
               }
-              if (accountText == '999' && passwordText == '123') {
+              if (accountText == '199999999' && passwordText == '999999') {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.blueAccent,
-                  content: Text('登录成功'),
+                  duration: Duration(milliseconds: 1000),
+                  content: Text('success'),
                 ));
               } else {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.blueAccent,
-                  content: Text('账号或密码错误'),
+                  duration: Duration(milliseconds: 1000),
+                  content: Text('wrong account or password'),
                 ));
               }
             },
