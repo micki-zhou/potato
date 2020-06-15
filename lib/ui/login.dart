@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginView extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _LoginState();
   }
 }
 
-class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
+class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   String accountText = "";
   String passwordText = "";
   AnimationController animationController;

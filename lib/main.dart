@@ -10,7 +10,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'potato',
-      home: LoginView(),
+      home: LoginPage(),
     );
   }
 }
