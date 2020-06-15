@@ -110,21 +110,42 @@ class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
   // 登录按钮
   Widget _loginBtn() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      child: RaisedButton(
-        child: Text('sign in'),
-        color: Colors.blueAccent,
-        textColor: Colors.white,
-        onPressed: () {
-          if (accountText == 'admin' && passwordText == '123') {
-          } else {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('账号或密码错误'),
-            ));
-          }
-        },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      ),
-    );
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Builder(builder: (BuildContext context) {
+          return RaisedButton(
+            child: Text('sign in'),
+            color: Colors.blueAccent,
+            textColor: Colors.white,
+            onPressed: () {
+              if(accountText == '') {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.blueAccent,
+                  content: Text('账号不能为空'),
+                ));
+                return;
+              }
+              if(passwordText == '') {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.blueAccent,
+                  content: Text('密码不能为空'),
+                ));
+                return;
+              }
+              if (accountText == '999' && passwordText == '123') {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.blueAccent,
+                  content: Text('登录成功'),
+                ));
+              } else {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.blueAccent,
+                  content: Text('账号或密码错误'),
+                ));
+              }
+            },
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          );
+        }));
   }
 }
