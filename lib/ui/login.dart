@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potato/ui/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -47,7 +48,8 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             children: <Widget>[
               _accountTextField(),
               _passwordTextField(),
-              _loginBtn()
+              _loginBtn(),
+              _registerBtn()
             ],
           ),
         ),
@@ -68,7 +70,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             },
             decoration: InputDecoration(
               // labelText: 'please enter account',
-              hintText: "please enter account",
+              hintText: "Please enter account",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none),
@@ -94,7 +96,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             },
             decoration: InputDecoration(
                 // labelText: 'please enter password',
-                hintText: "please enter password",
+                hintText: "Please enter password",
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none),
@@ -107,44 +109,59 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         ));
   }
 
+  // 注册按钮
+  Widget _registerBtn() {
+    return Container(
+      width: 500,
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FlatButton(
+            child: Text('Sign up'),
+            textColor: Colors.white,
+            onPressed: () {
+              // 跳转注册界面
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return RegisterPage();
+              }));
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   // 登录按钮
   Widget _loginBtn() {
     return Padding(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Builder(builder: (BuildContext context) {
           return RaisedButton(
-            child: Text('sign in'),
+            child: Text('Sign in'),
             color: Colors.blueAccent,
             textColor: Colors.white,
             onPressed: () {
               void showsnackBar(String msg) {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.blueAccent,
-                  duration: Duration(milliseconds: 1000),
+                  duration: Duration(milliseconds: 1500),
                   content: Text(msg),
                 ));
               }
 
               if (accountText.isEmpty) {
-                showsnackBar("account cannot be empty");
+                showsnackBar("Account cannot be empty");
                 return;
               }
               if (passwordText.isEmpty) {
-                showsnackBar("password cannot be empty");
+                showsnackBar("Password cannot be empty");
                 return;
               }
-              if (accountText == '199999999' && passwordText == '999999') {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.blueAccent,
-                  duration: Duration(milliseconds: 1000),
-                  content: Text('success'),
-                ));
+              if (accountText.isNotEmpty && passwordText.isNotEmpty) {
+                showsnackBar("Success");
               } else {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.blueAccent,
-                  duration: Duration(milliseconds: 1000),
-                  content: Text('wrong account or password'),
-                ));
+                showsnackBar("Wrong account or password");
               }
             },
             shape:
