@@ -20,8 +20,8 @@ class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
     super.initState();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-    curvedAnimation =
-        CurvedAnimation(parent: animationController, curve: Curves.easeInOutBack);
+    curvedAnimation = CurvedAnimation(
+        parent: animationController, curve: Curves.easeInOutBack);
     animationController.forward();
   }
 
@@ -108,7 +108,7 @@ class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
   }
 
   // 登录按钮
-  Widget _loginBtn( ) {
+  Widget _loginBtn() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: RaisedButton(
@@ -116,7 +116,12 @@ class _LoginState extends State<LoginView> with SingleTickerProviderStateMixin {
         color: Colors.blueAccent,
         textColor: Colors.white,
         onPressed: () {
-          print('account: $accountText  password: $passwordText');
+          if (accountText == 'admin' && passwordText == '123') {
+          } else {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('账号或密码错误'),
+            ));
+          }
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
