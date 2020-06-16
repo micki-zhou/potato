@@ -12,6 +12,7 @@ class _RegisterPageState extends State<RegisterPage>
   AnimationController animationController;
   CurvedAnimation curvedAnimation;
   Animation<Offset> animation;
+  Animation<double> slide;
 
   @override
   void initState() {
@@ -22,7 +23,17 @@ class _RegisterPageState extends State<RegisterPage>
         parent: animationController, curve: Curves.easeInOutBack);
     animation =
         Tween(begin: Offset(0, 0), end: Offset(0, -3)).animate(curvedAnimation);
+    slide = Tween(begin: 200.0, end: 50.0).animate(curvedAnimation)
+      ..addListener(() {
+        setState(() {});
+      });
     animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
   }
 
   @override
@@ -34,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage>
       ),
       backgroundColor: Color(0xff383838),
       body: Container(
-        padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
+        padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
         child: Column(
           children: <Widget>[_textTip(), _accountTextField(), _next()],
         ),
@@ -43,6 +54,38 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   Widget _textTip() {
+    return Container(
+      width: 500,
+      child: Text(
+        'Hi , \nwhat name do you want ?',
+        style: TextStyle(color: Colors.white, fontSize: 25),
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+
+  Widget _accountTextField() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+      child: TextField(
+        onChanged: (value) {
+          accountText = value;
+        },
+        decoration: InputDecoration(
+          hintText: "Please enter account",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none),
+          fillColor: Colors.white,
+          filled: true,
+        ),
+        keyboardType: TextInputType.number,
+      ),
+    );
+  }
+
+  @Deprecated('disable')
+  Widget _textTip2() {
     return Container(
         width: 500,
         child: SlideTransition(
@@ -55,7 +98,8 @@ class _RegisterPageState extends State<RegisterPage>
         ));
   }
 
-  Widget _accountTextField() {
+  @Deprecated('disable')
+  Widget _accountTextField2() {
     return Padding(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
         child: SlideTransition(
@@ -81,23 +125,36 @@ class _RegisterPageState extends State<RegisterPage>
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        FlatButton(
-            onPressed: () {
-              if (accountText.isNotEmpty) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return RegisterNext();
-                }));
-              }
-            },
-            color: Colors.blueAccent,
-            shape: CircleBorder(),
-            child: Icon(
-              Icons.navigate_next,
-              color: Colors.white,
-              size: 50,
-            ))
+        Builder(builder: (BuildContext context) {
+          return FlatButton(
+              onPressed: () {
+                if (accountText.isNotEmpty) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RegisterNext();
+                  }));
+                } else {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.blueAccent,
+                    duration: Duration(milliseconds: 1500),
+                    content: Text('Account cannot be empty'),
+                  ));
+                }
+              },
+              color: Colors.blueAccent,
+              shape: CircleBorder(),
+              child: Icon(
+                Icons.navigate_next,
+                color: Colors.white,
+                size: 50,
+              ));
+        })
       ],
     );
+  }
+
+  void saveAccountValue() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("account", accountText);
   }
 }
 
