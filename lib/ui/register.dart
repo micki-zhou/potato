@@ -9,7 +9,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage>
     with SingleTickerProviderStateMixin {
   String accountText = "";
-  String passwordText = "";
   AnimationController animationController;
   CurvedAnimation curvedAnimation;
   Animation<Offset> animation;
@@ -22,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage>
     curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutBack);
     animation =
-        Tween(begin: Offset(0, 0), end: Offset(0, -4)).animate(curvedAnimation);
+        Tween(begin: Offset(0, 0), end: Offset(0, -3)).animate(curvedAnimation);
     animationController.forward();
   }
 
@@ -35,26 +34,9 @@ class _RegisterPageState extends State<RegisterPage>
       ),
       backgroundColor: Color(0xff383838),
       body: Container(
-        padding: EdgeInsets.fromLTRB(30, 300, 30, 0),
+        padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
         child: Column(
-          children: <Widget>[
-            _textTip(),
-            _accountTextField(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                FlatButton(
-                    onPressed: () {},
-                    color: Colors.blueAccent,
-                    shape: CircleBorder(),
-                    child: Icon(
-                      Icons.navigate_next,
-                      color: Colors.white,
-                      size: 50,
-                    ))
-              ],
-            )
-          ],
+          children: <Widget>[_textTip(), _accountTextField(), _next()],
         ),
       ),
     );
@@ -93,5 +75,46 @@ class _RegisterPageState extends State<RegisterPage>
             keyboardType: TextInputType.number,
           ),
         ));
+  }
+
+  Widget _next() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        FlatButton(
+            onPressed: () {
+              if (accountText.isNotEmpty) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return RegisterNext();
+                }));
+              }
+            },
+            color: Colors.blueAccent,
+            shape: CircleBorder(),
+            child: Icon(
+              Icons.navigate_next,
+              color: Colors.white,
+              size: 50,
+            ))
+      ],
+    );
+  }
+}
+
+class RegisterNext extends StatefulWidget {
+  @override
+  _RegisterNextState createState() => _RegisterNextState();
+}
+
+class _RegisterNextState extends State<RegisterNext> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign up3'),
+        backgroundColor: Color(0xff383838),
+      ),
+      backgroundColor: Color(0xff383838),
+    );
   }
 }
