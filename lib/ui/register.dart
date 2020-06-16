@@ -12,6 +12,7 @@ class _RegisterPageState extends State<RegisterPage>
   String passwordText = "";
   AnimationController animationController;
   CurvedAnimation curvedAnimation;
+  Animation<Offset> animation;
 
   @override
   void initState() {
@@ -20,6 +21,8 @@ class _RegisterPageState extends State<RegisterPage>
         duration: const Duration(milliseconds: 1000), vsync: this);
     curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutBack);
+    animation =
+        Tween(begin: Offset(0, 0), end: Offset(0, -4)).animate(curvedAnimation);
     animationController.forward();
   }
 
@@ -32,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage>
       ),
       backgroundColor: Color(0xff383838),
       body: Container(
-        padding: EdgeInsets.fromLTRB(30, 100, 30, 0),
+        padding: EdgeInsets.fromLTRB(30, 300, 30, 0),
         child: Column(
           children: <Widget>[_textTip(), _accountTextField()],
         ),
@@ -42,21 +45,22 @@ class _RegisterPageState extends State<RegisterPage>
 
   Widget _textTip() {
     return Container(
-      width: 500,
-      child: Text(
-        'What name do you want ?',
-        style: TextStyle(color: Colors.white, fontSize: 25),
-        textAlign: TextAlign.start,
-      ),
-    );
+        width: 500,
+        child: SlideTransition(
+          position: animation,
+          child: Text(
+            'Hi , \nwhat name do you want ?',
+            style: TextStyle(color: Colors.white, fontSize: 25),
+            textAlign: TextAlign.start,
+          ),
+        ));
   }
 
   Widget _accountTextField() {
     return Padding(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-        child: ScaleTransition(
-          alignment: Alignment.centerLeft,
-          scale: curvedAnimation,
+        child: SlideTransition(
+          position: animation,
           child: TextField(
             onChanged: (value) {
               accountText = value;
@@ -69,7 +73,6 @@ class _RegisterPageState extends State<RegisterPage>
                   borderSide: BorderSide.none),
               fillColor: Colors.white,
               filled: true,
-              prefixIcon: Icon(Icons.person),
             ),
             keyboardType: TextInputType.number,
           ),
