@@ -37,7 +37,24 @@ class _RegisterPageState extends State<RegisterPage>
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 300, 30, 0),
         child: Column(
-          children: <Widget>[_textTip(), _accountTextField()],
+          children: <Widget>[
+            _textTip(),
+            _accountTextField(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FlatButton(
+                    onPressed: () {},
+                    color: Colors.blueAccent,
+                    shape: CircleBorder(),
+                    child: Icon(
+                      Icons.navigate_next,
+                      color: Colors.white,
+                      size: 50,
+                    ))
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -66,8 +83,7 @@ class _RegisterPageState extends State<RegisterPage>
               accountText = value;
             },
             decoration: InputDecoration(
-              // labelText: 'please enter account',
-              hintText: "please enter account",
+              hintText: "Please enter account",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none),
