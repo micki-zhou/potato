@@ -24,6 +24,9 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     print("password: " + password);
     accountText = account;
     passwordText = password;
+    if (accountText.isNotEmpty && passwordText.isNotEmpty) {
+      setState(() {});
+    }
   }
 
   @override
