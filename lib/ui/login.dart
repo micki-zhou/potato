@@ -22,11 +22,14 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     String password = sharedPreferences.getString("password");
     print("account: " + account);
     print("password: " + password);
+    accountText = account;
+    passwordText = password;
   }
 
   @override
   void initState() {
     super.initState();
+    getInfo();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1500), vsync: this);
     curvedAnimation = CurvedAnimation(
@@ -76,6 +79,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             onChanged: (value) {
               accountText = value;
             },
+            controller: TextEditingController(text: accountText),
             decoration: InputDecoration(
               // labelText: 'please enter account',
               hintText: "Please enter account",
@@ -99,6 +103,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
           alignment: Alignment.centerRight,
           scale: curvedAnimation,
           child: TextField(
+            controller: TextEditingController(text: passwordText),
             onChanged: (value) {
               passwordText = value;
             },

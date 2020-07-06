@@ -224,9 +224,17 @@ class _RegisterNextState extends State<RegisterNext>
               onPressed: () {
                 if (passwordText.isNotEmpty) {
                   savePasswordValue();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return LoginPage();
+                  // }));
+
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
                     return LoginPage();
-                  }));
+                  }), (route) => false);
+
+                  // Navigator.of(context).pushAndRemoveUntil(LoginPage(), (Route<dynamic> route) => false);
+
+
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     backgroundColor: Colors.blueAccent,
@@ -247,7 +255,7 @@ class _RegisterNextState extends State<RegisterNext>
     );
   }
 
-  // 保存用户名
+  // 保存密码
   void savePasswordValue() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("password", passwordText);
