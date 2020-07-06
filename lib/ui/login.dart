@@ -16,6 +16,14 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   CurvedAnimation curvedAnimation;
   Animation animation;
 
+  void getInfo() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String account = sharedPreferences.getString("account");
+    String password = sharedPreferences.getString("password");
+    print("account: " + account);
+    print("password: " + password);
+  }
+
   @override
   void initState() {
     super.initState();
