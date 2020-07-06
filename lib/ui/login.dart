@@ -20,7 +20,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 1500), vsync: this);
     curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutBack);
     animationController.forward();

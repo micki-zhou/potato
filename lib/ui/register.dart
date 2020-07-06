@@ -18,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage>
   void initState() {
     super.initState();
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 1500), vsync: this);
     curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutBack);
     animation =
@@ -84,43 +84,6 @@ class _RegisterPageState extends State<RegisterPage>
     );
   }
 
-  @Deprecated('disable')
-  Widget _textTip2() {
-    return Container(
-        width: 500,
-        child: SlideTransition(
-          position: animation,
-          child: Text(
-            'Hi , \nwhat name do you want ?',
-            style: TextStyle(color: Colors.white, fontSize: 25),
-            textAlign: TextAlign.start,
-          ),
-        ));
-  }
-
-  @Deprecated('disable')
-  Widget _accountTextField2() {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-        child: SlideTransition(
-          position: animation,
-          child: TextField(
-            onChanged: (value) {
-              accountText = value;
-            },
-            decoration: InputDecoration(
-              hintText: "Please enter account",
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none),
-              fillColor: Colors.white,
-              filled: true,
-            ),
-            keyboardType: TextInputType.number,
-          ),
-        ));
-  }
-
   Widget _next() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -129,9 +92,11 @@ class _RegisterPageState extends State<RegisterPage>
           return FlatButton(
               onPressed: () {
                 if (accountText.isNotEmpty) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return RegisterNext();
-                  }));
+                  saveAccountValue();
+                  // 注册成功，跳转登录
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return RegisterNext();
+                  // }));
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     backgroundColor: Colors.blueAccent,
@@ -152,26 +117,9 @@ class _RegisterPageState extends State<RegisterPage>
     );
   }
 
+  // 保存用户名
   void saveAccountValue() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("account", accountText);
-  }
-}
-
-class RegisterNext extends StatefulWidget {
-  @override
-  _RegisterNextState createState() => _RegisterNextState();
-}
-
-class _RegisterNextState extends State<RegisterNext> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign up3'),
-        backgroundColor: Color(0xff383838),
-      ),
-      backgroundColor: Color(0xff383838),
-    );
   }
 }
