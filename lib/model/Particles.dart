@@ -3,19 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:potato/model/ParticleModel.dart';
 import 'package:potato/model/ParticlePainter.dart';
-import 'package:potato/model/Particles.dart';
-import 'package:simple_animations/simple_animations/rendering.dart';
+import 'package:simple_animations/simple_animations.dart';
 
-class HomePage extends StatefulWidget {
-  final int numberOfParticles = 25;
+class Particles extends StatefulWidget {
+  final int numberOfParticles;
 
-  // HomePage(this.numberOfParticles);
+  Particles(this.numberOfParticles);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _ParticlesState createState() => _ParticlesState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ParticlesState extends State<Particles> {
   final Random random = Random();
 
   final List<ParticleModel> particles = [];
@@ -30,11 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Rendering(
-      startTime: Duration(seconds: 30),
-      onTick: _simulateParticles,
       builder: (context, time) {
+        _simulateParticles(time);
         return CustomPaint(
           painter: ParticlePainter(particles, time),
         );

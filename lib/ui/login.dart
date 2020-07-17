@@ -1,8 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:potato/model/ParticleModel.dart';
+import 'package:potato/model/ParticlePainter.dart';
+import 'package:potato/ui/home.dart';
 import 'package:potato/ui/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_animations/simple_animations/rendering.dart';
 
 class LoginPage extends StatefulWidget {
+  final int numberOfParticles = 25;
+
   @override
   State<StatefulWidget> createState() {
     return _LoginState();
@@ -15,6 +23,10 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   AnimationController animationController;
   CurvedAnimation curvedAnimation;
   Animation animation;
+
+  final Random random = Random();
+
+  final List<ParticleModel> particles = [];
 
   void getInfo() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -38,6 +50,10 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutBack);
     animationController.forward();
+
+    List.generate(widget.numberOfParticles, (index) {
+      particles.add(ParticleModel(random));
+    });
   }
 
   @override
@@ -55,20 +71,40 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       ),
       backgroundColor: Color(0xff383838),
       body: Center(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _accountTextField(),
-              _passwordTextField(),
-              _loginBtn(),
-              _registerBtn()
-            ],
+          child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Rendering(
+              startTime: Duration(seconds: 30),
+              onTick: _simulateParticles,
+              builder: (context, time) {
+                return CustomPaint(
+                  painter: ParticlePainter(particles, time),
+                );
+              },
+            ),
           ),
-        ),
-      ),
+          Positioned.fill(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _accountTextField(),
+                  _passwordTextField(),
+                  _loginBtn(),
+                  _registerBtn()
+                ],
+              ),
+            ),
+          ),
+        ],
+      )),
     );
+  }
+
+  _simulateParticles(Duration time) {
+    particles.forEach((particle) => particle.maintainRestart(time));
   }
 
   // 账号输入框
@@ -166,7 +202,6 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 ));
               }
 
-              //TODO: 登录后的处理
               if (accountText.isEmpty) {
                 showsnackBar("Account cannot be empty");
                 return;
@@ -176,7 +211,10 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 return;
               }
               if (accountText.isNotEmpty && passwordText.isNotEmpty) {
-                showsnackBar("Success");
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return HomePage();
+                }), (route) => false);
               } else {
                 showsnackBar("Wrong account or password");
               }
