@@ -1,48 +1,37 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:potato/model/ParticleModel.dart';
-import 'package:potato/model/ParticlePainter.dart';
-import 'package:potato/model/Particles.dart';
-import 'package:simple_animations/simple_animations/rendering.dart';
 
 class HomePage extends StatefulWidget {
-  final int numberOfParticles = 25;
-
-  // HomePage(this.numberOfParticles);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final Random random = Random();
-
-  final List<ParticleModel> particles = [];
-
   @override
   void initState() {
-    List.generate(widget.numberOfParticles, (index) {
-      particles.add(ParticleModel(random));
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return Rendering(
-      startTime: Duration(seconds: 30),
-      onTick: _simulateParticles,
-      builder: (context, time) {
-        return CustomPaint(
-          painter: ParticlePainter(particles, time),
-        );
-      },
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: <Widget>[_homeBanner()],
+        ),
+      ),
     );
   }
 
-  _simulateParticles(Duration time) {
-    particles.forEach((particle) => particle.maintainRestart(time));
+  PageController pageController = PageController();
+
+  Widget _homeBanner() {
+    return PageView(
+      controller: pageController,
+      children: <Widget>[
+        Image.asset('images/img_banner01.png'),
+        Image.asset('images/img_banner02.png'),
+        Image.asset('images/img_banner03.png')
+      ],
+    );
   }
 }
