@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: Column(
-          children: <Widget>[_homeBanner()],
+          children: <Widget>[Container(height: 180, child: _homeBanner())],
         ),
       ),
     );
