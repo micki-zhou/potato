@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         index = 0;
       }
       pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+          duration: Duration(seconds: 1), curve: Curves.easeInOutBack);
     });
   }
 
@@ -36,12 +36,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: Column(
-          children: <Widget>[Container(height: 180, child: _homeBanner())],
+          children: <Widget>[
+            Container(
+                margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                height: 180,
+                child: _homeBanner())
+          ],
         ),
       ),
     );
   }
 
+  // banner 图
   Widget _homeBanner() {
     return PageView(
       controller: pageController,
