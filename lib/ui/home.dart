@@ -11,6 +11,7 @@ class _HomePageState extends State<HomePage> {
   Timer timer;
   PageController pageController = PageController();
   int index = 0;
+  //TODO 临时图片数据
   List<String> imageUrls = [
     'images/img_banner01.png',
     'images/img_banner02.png',
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       index++;
-      if (index > 2) {
+      if (index > imageUrls.length - 1) {
         index = 0;
       }
       pageController.animateToPage(index,
@@ -41,22 +42,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: Column(
-          children: <Widget>[
-            Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                height: 180,
-                child: _homeBanner())
-          ],
+          children: <Widget>[_homeBanner(), _dailyRecommend()],
         ),
       ),
     );
   }
 
-  // banner 图
+  // banner
   Widget _homeBanner() {
-    return PageView(
-      controller: pageController,
-      children: _getBannerImageWidget(),
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+      height: 180,
+      child: PageView(
+        controller: pageController,
+        children: _getBannerImageWidget(),
+      ),
     );
   }
 
@@ -72,5 +72,16 @@ class _HomePageState extends State<HomePage> {
       ));
     }
     return banners;
+  }
+
+  // 每日推荐列表
+  Widget _dailyRecommend() {
+    return Container(
+      height: 80,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[],
+      ),
+    );
   }
 }
