@@ -18,6 +18,11 @@ class _HomePageState extends State<HomePage> {
     'images/img_banner02.png',
     'images/img_banner03.png'
   ];
+  List<String> recomendUrls = [
+    'images/icon_home_daily.png',
+    'images/icon_home_music_list.png',
+    'images/icon_home_rank.png'
+  ];
 
   @override
   void initState() {
@@ -67,8 +72,9 @@ class _HomePageState extends State<HomePage> {
     for (String url in imageUrls) {
       banners.add(Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover)),
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover),
+        ),
         margin: EdgeInsets.all(10),
       ));
     }
@@ -78,21 +84,31 @@ class _HomePageState extends State<HomePage> {
   // 每日推荐列表
   Widget _dailyRecommend() {
     return Container(
-      height: 80,
+      height: 100,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          _getDailyRecommend(),
-        ],
+        children: _getDailyRecommend(),
       ),
     );
   }
 
-  Widget _getDailyRecommend() {
-    return Container(
-      height: 200,
-      width: 200,
-      color: MyColors.theme,
-    );
+  // 处理获取每日推荐列表
+  List<Widget> _getDailyRecommend() {
+    List<Widget> result = new List();
+    for (String url in recomendUrls) {
+      result.add(Container(
+        height: 60,
+        width: 60,
+        margin: EdgeInsets.all(10),
+        // color: MyColors.theme,
+        decoration: BoxDecoration(
+            color: MyColors.theme,
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(url),
+            )),
+      ));
+    }
+    return result;
   }
 }

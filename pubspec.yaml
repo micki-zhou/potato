@@ -52,6 +52,9 @@ flutter:
     - images/img_banner01.png
     - images/img_banner02.png
     - images/img_banner03.png
+    - images/icon_home_daily.png
+    - images/icon_home_music_list.png
+    - images/icon_home_rank.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
