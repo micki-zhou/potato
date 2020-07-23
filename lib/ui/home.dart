@@ -21,7 +21,11 @@ class _HomePageState extends State<HomePage> {
   List<String> recomendUrls = [
     'images/icon_home_daily.png',
     'images/icon_home_music_list.png',
-    'images/icon_home_rank.png'
+    'images/icon_home_rank.png',
+    'images/icon_home_radio.png',
+    'images/icon_home_live.png',
+    'images/icon_home_album.png',
+    'images/icon_home_chat.png'
   ];
 
   @override
@@ -96,17 +100,28 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _getDailyRecommend() {
     List<Widget> result = new List();
     for (String url in recomendUrls) {
-      result.add(Container(
-        height: 60,
-        width: 60,
-        margin: EdgeInsets.all(10),
-        // color: MyColors.theme,
-        decoration: BoxDecoration(
-            color: MyColors.theme,
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(url),
-            )),
+      result.add(Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            height: 60,
+            width: 60,
+            margin: EdgeInsets.all(10),
+            // color: MyColors.theme,
+            decoration: BoxDecoration(
+              color: MyColors.theme,
+              shape: BoxShape.circle,
+              // image: DecorationImage(
+              //   image: AssetImage(url),
+              // ),
+            ),
+          ),
+          Image(
+            image: AssetImage(url),
+            height: 20,
+            width: 20,
+          ),
+        ],
       ));
     }
     return result;
