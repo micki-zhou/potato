@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:potato/config/myColors.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -80,12 +81,18 @@ class _HomePageState extends State<HomePage> {
       height: 80,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[],
+        children: <Widget>[
+          _getDailyRecommend(),
+        ],
       ),
     );
   }
 
-  // Widget _getDailyRecommend() {
-  //   return ;
-  // }
+  Widget _getDailyRecommend() {
+    return Container(
+      height: 200,
+      width: 200,
+      color: MyColors.theme,
+    );
+  }
 }
