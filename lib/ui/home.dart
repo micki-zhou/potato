@@ -84,4 +84,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  // Widget _getDailyRecommend() {
+  //   return ;
+  // }
 }

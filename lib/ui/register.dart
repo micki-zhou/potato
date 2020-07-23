@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:potato/ui/login.dart';
+import 'package:potato/config/myColors.dart';
+import 'package:potato/ui/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -46,11 +47,11 @@ class _RegisterPageState extends State<RegisterPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign up'),
-        backgroundColor: Color(0xff383838),
-      ),
-      backgroundColor: Color(0xff383838),
+      // appBar: AppBar(
+      //   title: Text('Sign up'),
+      //   backgroundColor: Color(0xff383838),
+      // ),
+      backgroundColor: MyColors.theme,
       body: Container(
         padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
         child: Column(
@@ -105,17 +106,17 @@ class _RegisterPageState extends State<RegisterPage>
                   }));
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
                     content: Text('Account cannot be empty'),
                   ));
                 }
               },
-              color: Colors.blueAccent,
+              color: MyColors.white,
               shape: CircleBorder(),
               child: Icon(
                 Icons.navigate_next,
-                color: Colors.white,
+                color: MyColors.theme,
                 size: 50,
               ));
         })
@@ -170,11 +171,11 @@ class _RegisterNextState extends State<RegisterNext>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign up'),
-        backgroundColor: Color(0xff383838),
-      ),
-      backgroundColor: Color(0xff383838),
+      // appBar: AppBar(
+      //   title: Text('Sign up'),
+      //   backgroundColor: Color(0xff383838),
+      // ),
+      backgroundColor: MyColors.theme,
       body: Container(
         padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
         child: Column(
@@ -237,17 +238,17 @@ class _RegisterNextState extends State<RegisterNext>
 
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
                     content: Text('Password cannot be empty'),
                   ));
                 }
               },
-              color: Colors.blueAccent,
+              color: MyColors.white,
               shape: CircleBorder(),
               child: Icon(
                 Icons.navigate_next,
-                color: Colors.white,
+                color: MyColors.theme,
                 size: 50,
               ));
         })

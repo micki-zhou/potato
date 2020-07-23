@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:potato/ui/login.dart';
+import 'package:potato/ui/Login.dart';
 
 void main() {
   runApp(Main());

@@ -1,10 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:potato/config/myColors.dart';
 import 'package:potato/model/ParticleModel.dart';
 import 'package:potato/model/ParticlePainter.dart';
-import 'package:potato/ui/home.dart';
-import 'package:potato/ui/register.dart';
+import 'package:potato/ui/Home.dart';
+import 'package:potato/ui/Register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations/rendering.dart';
 
@@ -65,11 +66,11 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign in'),
-        backgroundColor: Color(0xff383838),
-      ),
-      backgroundColor: Color(0xff383838),
+      // appBar: AppBar(
+      //   title: Text('Sign in'),
+      //   backgroundColor: MyColors.theme,
+      // ),
+      backgroundColor: MyColors.theme,
       body: Center(
           child: Stack(
         children: <Widget>[
@@ -191,12 +192,12 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         child: Builder(builder: (BuildContext context) {
           return RaisedButton(
             child: Text('Sign in'),
-            color: Colors.blueAccent,
-            textColor: Colors.white,
+            color: MyColors.white,
+            textColor: MyColors.text,
             onPressed: () {
               void showsnackBar(String msg) {
                 Scaffold.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: MyColors.tip,
                   duration: Duration(milliseconds: 1500),
                   content: Text(msg),
                 ));
