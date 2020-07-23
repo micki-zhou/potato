@@ -11,6 +11,11 @@ class _HomePageState extends State<HomePage> {
   Timer timer;
   PageController pageController = PageController();
   int index = 0;
+  List<String> imageUrls = [
+    'images/img_banner01.png',
+    'images/img_banner02.png',
+    'images/img_banner03.png'
+  ];
 
   @override
   void initState() {
@@ -51,35 +56,21 @@ class _HomePageState extends State<HomePage> {
   Widget _homeBanner() {
     return PageView(
       controller: pageController,
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                  image: AssetImage('images/img_banner01.png'),
-                  fit: BoxFit.cover)),
-          margin: EdgeInsets.all(10),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                  image: AssetImage('images/img_banner02.png'),
-                  fit: BoxFit.cover)),
-          margin: EdgeInsets.all(10),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                  image: AssetImage('images/img_banner03.png'),
-                  fit: BoxFit.cover)),
-          margin: EdgeInsets.all(10),
-        )
-      ],
+      children: _getBannerImageWidget(),
     );
-    // pageController.addListener(() {
-    //   if(pageController)
-    // });
+  }
+
+  // 处理图片列表
+  List<Widget> _getBannerImageWidget() {
+    List<Widget> banners = new List();
+    for (String url in imageUrls) {
+      banners.add(Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover)),
+        margin: EdgeInsets.all(10),
+      ));
+    }
+    return banners;
   }
 }
