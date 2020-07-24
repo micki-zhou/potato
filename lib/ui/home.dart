@@ -58,6 +58,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // 顶部栏
+  Widget _topView() {
+    
+  }
+
   // banner
   Widget _homeBanner() {
     return Container(
