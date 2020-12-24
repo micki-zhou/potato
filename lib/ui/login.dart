@@ -33,11 +33,11 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String account = sharedPreferences.getString("account");
     String password = sharedPreferences.getString("password");
-    print("account: " + account);
-    print("password: " + password);
-    accountText = account;
-    passwordText = password;
-    if (accountText.isNotEmpty && passwordText.isNotEmpty) {
+    // print("account: " + account);
+    // print("password: " + password);
+    if (account != null) accountText = account;
+    if (password != null) passwordText = password;
+    if (accountText != null && passwordText != null) {
       setState(() {});
     }
   }
