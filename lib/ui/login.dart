@@ -29,6 +29,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
 
   final List<ParticleModel> particles = [];
 
+  // 获取缓存账号信息
   void getInfo() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String account = sharedPreferences.getString("account");

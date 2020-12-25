@@ -1,7 +1,7 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
-import 'package:potato/config/myColors.dart';
+import 'package:potato/config/MyColors.dart';
 import 'package:potato/ui/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,14 +52,21 @@ class _RegisterPageState extends State<RegisterPage>
       //   backgroundColor: Color(0xff383838),
       // ),
       backgroundColor: MyColors.theme,
-      body: Container(
-        padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
-        child: Column(
-          children: <Widget>[_textTip(), _textField(), _next()],
-        ),
+      body: Column(
+        children: [
+          _backLogin(context),
+          Container(
+            padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
+            child: Column(
+              children: <Widget>[_textTip(), _textField(), _next()],
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  
 
   Widget _textTip() {
     return Container(
@@ -176,11 +183,16 @@ class _RegisterNextState extends State<RegisterNext>
       //   backgroundColor: Color(0xff383838),
       // ),
       backgroundColor: MyColors.theme,
-      body: Container(
-        padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
-        child: Column(
-          children: <Widget>[_textTip(), _textField(), _next()],
-        ),
+      body: Column(
+        children: [
+          _backLogin(context),
+          Container(
+            padding: EdgeInsets.fromLTRB(30, slide.value, 30, 0),
+            child: Column(
+              children: <Widget>[_textTip(), _textField(), _next()],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -229,12 +241,12 @@ class _RegisterNextState extends State<RegisterNext>
                   //   return LoginPage();
                   // }));
 
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) {
                     return LoginPage();
                   }), (route) => false);
 
                   // Navigator.of(context).pushAndRemoveUntil(LoginPage(), (Route<dynamic> route) => false);
-
 
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
@@ -262,3 +274,23 @@ class _RegisterNextState extends State<RegisterNext>
     sharedPreferences.setString("password", passwordText);
   }
 }
+
+Widget _backLogin(context) {
+    return Row(
+      children: [
+        FlatButton(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            onPressed: (){
+              Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), (route) => false);
+            },
+            child: Icon(
+              Icons.navigate_before,
+              size: 50,
+              color: MyColors.white,
+            )),
+      ],
+    );
+  }
