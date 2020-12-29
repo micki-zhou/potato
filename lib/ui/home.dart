@@ -55,10 +55,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.background,
-      body: Center(
-        child: Column(
-          children: <Widget>[_topView(), _homeBanner(), _dailyRecommend()],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _topView(),
+          _homeBanner(),
+          _dailyRecommend(),
+          _recommendSongSheet()
+        ],
       ),
     );
   }
@@ -166,11 +171,30 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Text(recomendStrs[i]),
+            Text(
+              recomendStrs[i],
+              style: TextStyle(fontSize: 12),
+            ),
           ],
         ),
       ));
     }
     return result;
+  }
+
+  // 推荐歌单
+  Widget _recommendSongSheet() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        children: [
+          Text(
+            "推荐歌单",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.left,
+          ),
+        ],
+      ),
+    );
   }
 }
