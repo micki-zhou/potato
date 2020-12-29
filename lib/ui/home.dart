@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     'images/icon_home_album.png',
     'images/icon_home_chat.png'
   ];
+  List<String> recomendStrs = ['每日推荐', '歌单', '排行榜', '私人FM', '直播', '数字专辑', '唱聊'];
 
   @override
   void initState() {
@@ -139,28 +140,33 @@ class _HomePageState extends State<HomePage> {
   // 处理获取每日推荐列表
   List<Widget> _getDailyRecommend() {
     List<Widget> result = new List();
-    for (String url in recomendUrls) {
-      result.add(Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Container(
-            height: 60,
-            width: 60,
-            margin: EdgeInsets.all(10),
-            // color: MyColors.theme,
-            decoration: BoxDecoration(
-              color: MyColors.theme,
-              shape: BoxShape.circle,
-              // image: DecorationImage(
-              //   image: AssetImage(url),
-              // ),
-            ),
+    for (var i = 0; i < recomendUrls.length; i++) {
+      result.add(Column(
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                margin: EdgeInsets.all(10),
+                // color: MyColors.theme,
+                decoration: BoxDecoration(
+                  color: MyColors.theme,
+                  shape: BoxShape.circle,
+                  // image: DecorationImage(
+                  //   image: AssetImage(url),
+                  // ),
+                ),
+              ),
+              Image(
+                image: AssetImage(recomendUrls[i]),
+                height: 25,
+                width: 25,
+              ),
+            ],
           ),
-          Image(
-            image: AssetImage(url),
-            height: 20,
-            width: 20,
-          ),
+          Text(recomendStrs[i]),
         ],
       ));
     }
