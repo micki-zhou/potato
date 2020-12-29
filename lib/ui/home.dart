@@ -13,13 +13,13 @@ class _HomePageState extends State<HomePage> {
   Timer timer;
   PageController pageController;
   int index = 0;
-  //TODO 临时图片数据
+  // TODO 临时图片数据
   List<String> imageUrls = [
     'images/img_banner01.png',
     'images/img_banner02.png',
     'images/img_banner03.png'
   ];
-  List<String> recomendUrls = [
+  List<String> recommendUrls = [
     'images/icon_home_daily.png',
     'images/icon_home_music_list.png',
     'images/icon_home_rank.png',
@@ -28,7 +28,18 @@ class _HomePageState extends State<HomePage> {
     'images/icon_home_album.png',
     'images/icon_home_chat.png'
   ];
-  List<String> recomendStrs = ['每日推荐', '歌单', '排行榜', '私人FM', '直播', '数字专辑', '唱聊'];
+  List<String> recommendStrs = [
+    '每日推荐',
+    '歌单',
+    '排行榜',
+    '私人FM',
+    '直播',
+    '数字专辑',
+    '唱聊'
+  ];
+
+  // TODO 临时数据
+  List<String> recommendSongSheetUrls = [];
 
   @override
   void initState() {
@@ -145,7 +156,7 @@ class _HomePageState extends State<HomePage> {
   // 处理获取每日推荐列表
   List<Widget> _getDailyRecommend() {
     List<Widget> result = new List();
-    for (var i = 0; i < recomendUrls.length; i++) {
+    for (var i = 0; i < recommendUrls.length; i++) {
       result.add(GestureDetector(
         onTap: () {
           print("recommend click: $i");
@@ -160,19 +171,20 @@ class _HomePageState extends State<HomePage> {
                   width: 50,
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: MyColors.theme,
+                    color: MyColors.theme6,
                     shape: BoxShape.circle,
                   ),
                 ),
                 Image(
-                  image: AssetImage(recomendUrls[i]),
+                  image: AssetImage(recommendUrls[i]),
                   height: 25,
                   width: 25,
+                  color: MyColors.theme,
                 ),
               ],
             ),
             Text(
-              recomendStrs[i],
+              recommendStrs[i],
               style: TextStyle(fontSize: 12),
             ),
           ],
