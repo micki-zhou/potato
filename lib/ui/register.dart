@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:potato/config/MyColors.dart';
 import 'package:potato/ui/Login.dart';
@@ -65,8 +63,6 @@ class _RegisterPageState extends State<RegisterPage>
       ),
     );
   }
-
-  
 
   Widget _textTip() {
     return Container(
@@ -276,21 +272,24 @@ class _RegisterNextState extends State<RegisterNext>
 }
 
 Widget _backLogin(context) {
-    return Row(
-      children: [
-        FlatButton(
+  return Row(
+    children: [
+      ButtonTheme(
+        minWidth: 50,
+        child: FlatButton(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            onPressed: (){
+            onPressed: () {
               Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) {
-                    return LoginPage();
-                  }), (route) => false);
+                  MaterialPageRoute(builder: (context) {
+                return LoginPage();
+              }), (route) => false);
             },
             child: Icon(
               Icons.navigate_before,
               size: 50,
               color: MyColors.white,
             )),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
