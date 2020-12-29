@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:potato/config/myColors.dart';
+import 'package:potato/config/MyColors.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Timer timer;
-  PageController pageController = PageController();
+  PageController pageController;
   int index = 0;
   //TODO 临时图片数据
   List<String> imageUrls = [
@@ -31,13 +32,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    pageController = PageController(initialPage: 0);
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       index++;
       if (index > imageUrls.length - 1) {
         index = 0;
       }
       pageController.animateToPage(index,
-          duration: Duration(seconds: 1), curve: Curves.easeInOutBack);
+          duration: Duration(seconds: 1), curve: Curves.easeInOut);
     });
   }
 
@@ -45,14 +47,16 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     timer.cancel();
+    pageController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.background,
       body: Center(
         child: Column(
-          children: <Widget>[_homeBanner(), _dailyRecommend()],
+          children: <Widget>[_topView(), _homeBanner(), _dailyRecommend()],
         ),
       ),
     );
@@ -60,13 +64,44 @@ class _HomePageState extends State<HomePage> {
 
   // 顶部栏
   Widget _topView() {
-    
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
+      color: MyColors.homeTheme,
+      height: 70,
+      child: Row(
+        children: [
+          _menuButton(),
+          _searchView(),
+        ],
+      ),
+    );
+  }
+
+  // 菜单按钮
+  Widget _menuButton() {
+    return ButtonTheme(
+      minWidth: 50,
+      height: double.infinity,
+      child: FlatButton(
+          onPressed: () {
+            print("press menu");
+          },
+          child: Icon(
+            Icons.menu,
+            // color: MyColors.balck,
+          )),
+    );
+  }
+
+  // 搜索框
+  Widget _searchView() {
+    return Container();
   }
 
   // banner
   Widget _homeBanner() {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
       height: 180,
       child: PageView(
         controller: pageController,
