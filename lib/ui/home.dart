@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
   Widget _homeBanner() {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-      height: 180,
+      height: 150,
       child: PageView(
         controller: pageController,
         children: _getBannerImageWidget(),
@@ -141,33 +141,34 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _getDailyRecommend() {
     List<Widget> result = new List();
     for (var i = 0; i < recomendUrls.length; i++) {
-      result.add(Column(
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Container(
-                height: 50,
-                width: 50,
-                margin: EdgeInsets.all(10),
-                // color: MyColors.theme,
-                decoration: BoxDecoration(
-                  color: MyColors.theme,
-                  shape: BoxShape.circle,
-                  // image: DecorationImage(
-                  //   image: AssetImage(url),
-                  // ),
+      result.add(GestureDetector(
+        onTap: () {
+          print("recommend click: $i");
+        },
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  width: 50,
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: MyColors.theme,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-              Image(
-                image: AssetImage(recomendUrls[i]),
-                height: 25,
-                width: 25,
-              ),
-            ],
-          ),
-          Text(recomendStrs[i]),
-        ],
+                Image(
+                  image: AssetImage(recomendUrls[i]),
+                  height: 25,
+                  width: 25,
+                ),
+              ],
+            ),
+            Text(recomendStrs[i]),
+          ],
+        ),
       ));
     }
     return result;
