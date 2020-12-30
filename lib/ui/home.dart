@@ -39,13 +39,29 @@ class _HomePageState extends State<HomePage> {
   ];
 
   // TODO 临时数据
-  List<String> recommendSongSheetUrls = [];
+  List<String> recommendSongSheetUrls = [
+    'images/img_recommend01.jpeg',
+    'images/img_recommend02.jpeg',
+    'images/img_recommend03.jpeg',
+    'images/img_recommend04.jpg',
+    'images/img_recommend05.jpg',
+    'images/img_recommend06.jpeg',
+  ];
+
+  List<String> recommendSongSheetStrs = [
+    '希望熬过孤独的你，能活成自己喜欢的模样',
+    '男生的温柔沁入心底 珊瑚长出海面 而你呢',
+    '痛彻心扉地哭，然后刻骨铭心的记住',
+    '后来你哭了，想安慰却忘了早已经没有了那个人',
+    '看小说听的歌曲（古风）',
+    '夜夜助你入眠',
+  ];
 
   @override
   void initState() {
     super.initState();
     pageController = PageController(initialPage: 0);
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       index++;
       if (index > imageUrls.length - 1) {
         index = 0;
@@ -155,7 +171,7 @@ class _HomePageState extends State<HomePage> {
 
   // 处理获取每日推荐列表
   List<Widget> _getDailyRecommend() {
-    List<Widget> result = new List();
+    List<Widget> result = List();
     for (var i = 0; i < recommendUrls.length; i++) {
       result.add(GestureDetector(
         onTap: () {
@@ -205,8 +221,54 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             textAlign: TextAlign.left,
           ),
+          Container(
+            height: 200,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: _recommendSongSheetList(),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  // 推荐歌单列表
+  List<Widget> _recommendSongSheetList() {
+    List<Widget> result = List();
+    for (int i = 0; i < recommendSongSheetUrls.length; i++) {
+      result.add(GestureDetector(
+        child: Column(children: [
+          Stack(
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: AssetImage(recommendSongSheetUrls[i]),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            width: 100,
+            child: Text(
+              recommendSongSheetStrs[i],
+              style: TextStyle(fontSize: 12),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ]),
+        onTap: () {
+          print("recommend song sheet click: $i");
+        },
+      ));
+    }
+    return result;
   }
 }
