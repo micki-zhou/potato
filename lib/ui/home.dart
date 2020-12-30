@@ -81,12 +81,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _drawer(),
       backgroundColor: MyColors.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _topView(),
+          _topView(context),
           _homeBanner(),
           _dailyRecommend(),
           _recommendSongSheet()
@@ -95,15 +96,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // 抽屉
+  Widget _drawer() {
+    return Drawer();
+  }
+
   // 顶部栏
-  Widget _topView() {
+  Widget _topView(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
       color: MyColors.homeTheme,
       height: 70,
       child: Row(
         children: [
-          _menuButton(),
+          Builder(builder: (BuildContext context) {
+            return _menuButton(context);
+          }),
           _searchView(),
         ],
       ),
@@ -111,13 +119,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   // 菜单按钮
-  Widget _menuButton() {
+  Widget _menuButton(BuildContext context) {
     return ButtonTheme(
       minWidth: 50,
       height: double.infinity,
       child: FlatButton(
           onPressed: () {
-            print("press menu");
+            Scaffold.of(context).openDrawer();
           },
           child: Icon(
             Icons.menu,
