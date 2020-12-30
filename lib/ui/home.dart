@@ -216,10 +216,28 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Column(
         children: [
-          Text(
-            "推荐歌单",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.left,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "推荐歌单",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: MyColors.homeTheme),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Text(
+                  "更多 >",
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
           ),
           Container(
             height: 200,
@@ -244,7 +262,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 100,
                 width: 100,
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
